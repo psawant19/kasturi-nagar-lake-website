@@ -45,9 +45,25 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Tab functionality for Work section
+// ============================================
+// PROGRESSIVE TAB-BASED IMAGE LOADING SYSTEM
+// ============================================
+
+// Tab functionality with lazy loading for Work section
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
+
+// Track which categories have been loaded
+const loadedCategories = new Set();
+
+// Create loading progress indicator
+const loadingProgress = document.createElement('div');
+loadingProgress.className = 'loading-progress';
+loadingProgress.innerHTML = `
+    <div class="loading-progress-spinner"></div>
+    <span class="loading-progress-text">Loading images...</span>
+`;
+document.body.appendChild(loadingProgress);
 
 tabButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -63,8 +79,162 @@ tabButtons.forEach(button => {
         const targetContent = document.getElementById(tabId);
         if (targetContent) {
             targetContent.classList.add('active');
+            
+            // Load images for this tab if not already loaded
+            loadTabImages(targetContent);
         }
     });
+});
+
+// Function to load images for a specific tab
+function loadTabImages(tabContent) {
+    const categories = tabContent.querySelectorAll('.work-category[data-loaded="false"]');
+    
+    if (categories.length === 0) {
+        return; // All categories already loaded
+    }
+    
+    categories.forEach(category => {
+        const categoryHeader = category.querySelector('.category-header h4');
+        const categoryName = categoryHeader ? categoryHeader.textContent.trim() : 'Category';
+        
+        // Skip if already loaded
+        if (loadedCategories.has(categoryName)) {
+            return;
+        }
+        
+        const preloader = category.querySelector('.category-preloader');
+        const gallery = category.querySelector('.category-gallery');
+        const images = gallery.querySelectorAll('img');
+        
+        if (images.length === 0) {
+            // No images, mark as loaded
+            category.setAttribute('data-loaded', 'true');
+            if (preloader) preloader.classList.add('hidden');
+            return;
+        }
+        
+        // Show loading progress
+        loadingProgress.classList.add('active');
+        updateLoadingProgress(0, images.length);
+        
+        let loadedCount = 0;
+        const totalImages = images.length;
+        
+        // Load each image with staggered timing
+        images.forEach((img, index) => {
+            // Add loading class to gallery item
+            const galleryItem = img.closest('.gallery-item');
+            if (galleryItem) {
+                galleryItem.classList.add('loading');
+            }
+            
+            // Stagger image loading for smooth effect
+            setTimeout(() => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    // Image already loaded (cached)
+                    onImageLoad(img);
+                } else {
+                    // Load image
+                    img.addEventListener('load', () => onImageLoad(img));
+                    img.addEventListener('error', () => onImageError(img));
+                }
+            }, index * 30); // 30ms delay between each image
+        });
+        
+        function onImageLoad(img) {
+            img.classList.add('loaded');
+            const galleryItem = img.closest('.gallery-item');
+            if (galleryItem) {
+                galleryItem.classList.remove('loading');
+            }
+            loadedCount++;
+            
+            // Update progress
+            updateLoadingProgress(loadedCount, totalImages);
+            
+            // When all images loaded
+            if (loadedCount === totalImages) {
+                finishCategoryLoading(category, gallery, categoryName, preloader);
+            }
+        }
+        
+        function onImageError(img) {
+            console.warn('Failed to load image:', img.src);
+            // Still count as loaded to prevent hanging
+            img.classList.add('loaded');
+            const galleryItem = img.closest('.gallery-item');
+            if (galleryItem) {
+                galleryItem.classList.remove('loading');
+            }
+            loadedCount++;
+            
+            // Update progress
+            updateLoadingProgress(loadedCount, totalImages);
+            
+            if (loadedCount === totalImages) {
+                finishCategoryLoading(category, gallery, categoryName, preloader);
+            }
+        }
+    });
+}
+
+// Update loading progress indicator
+function updateLoadingProgress(loaded, total) {
+    const progressText = loadingProgress.querySelector('.loading-progress-text');
+    if (progressText) {
+        progressText.textContent = `Loading images... ${loaded}/${total}`;
+    }
+}
+
+// Finish loading a category
+function finishCategoryLoading(category, gallery, categoryName, preloader) {
+    // Hide preloader
+    if (preloader) {
+        preloader.classList.add('hidden');
+    }
+    
+    // Mark category as loaded
+    category.setAttribute('data-loaded', 'true');
+    loadedCategories.add(categoryName);
+    
+    // Hide loading progress after a short delay
+    setTimeout(() => {
+        loadingProgress.classList.remove('active');
+    }, 500);
+    
+    // Initialize Masonry for this gallery after images are loaded
+    setTimeout(() => {
+        initializeMasonryForGallery(gallery);
+    }, 100);
+    
+    // Success indicator removed as per user request
+}
+
+// Initialize Masonry for a specific gallery
+function initializeMasonryForGallery(gallery) {
+    if (!gallery) return;
+    
+    imagesLoaded(gallery, function() {
+        new Masonry(gallery, {
+            itemSelector: '.gallery-item',
+            columnWidth: '.gallery-item',
+            percentPosition: true,
+            gutter: 20,
+            transitionDuration: '0.3s'
+        });
+    });
+}
+
+// Load images for the initially active tab on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const activeTab = document.querySelector('.tab-content.active');
+    if (activeTab) {
+        // Small delay to ensure DOM is fully ready
+        setTimeout(() => {
+            loadTabImages(activeTab);
+        }, 100);
+    }
 });
 
 // Intersection Observer for scroll animations
@@ -447,37 +617,21 @@ document.querySelectorAll('.mission-card, .work-card, .stat-card').forEach(card 
 console.log('%c🌊 Kasturi Nagar Lake Rejuvenation Project', 'color: #2c7a7b; font-size: 20px; font-weight: bold;');
 console.log('%cJoin us in our mission to restore and preserve our beautiful lake!', 'color: #38b2ac; font-size: 14px;');
 
-// Initialize Masonry for all category galleries
-function initMasonry() {
-    const galleries = document.querySelectorAll('.category-gallery');
-    
-    galleries.forEach(gallery => {
-        // Wait for images to load before initializing Masonry
-        imagesLoaded(gallery, function() {
-            new Masonry(gallery, {
-                itemSelector: '.gallery-item',
-                columnWidth: '.gallery-item',
-                percentPosition: true,
-                gutter: 20
-            });
-        });
-    });
-}
+// ============================================
+// MASONRY INITIALIZATION (Now handled by progressive loading)
+// ============================================
 
-// Initialize Masonry when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMasonry);
-} else {
-    initMasonry();
-}
+// Note: Masonry is now initialized per-gallery after images load
+// in the loadTabImages() function above. This prevents layout breaks
+// and ensures proper grid calculation.
 
-// Re-initialize Masonry when switching tabs in the work section
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Wait for tab content to be visible before initializing
-        setTimeout(() => {
-            initMasonry();
-        }, 100);
-    });
-});
+// The old initMasonry() function has been replaced with
+// initializeMasonryForGallery() which is called after each
+// category's images finish loading in the progressive loading system.
+
+// This ensures:
+// 1. No layout breaks during image loading
+// 2. Proper Masonry grid calculation with actual image dimensions
+// 3. Smooth loading experience with preloader
+// 4. Images only load when their tab is active
 // Made with Bob
