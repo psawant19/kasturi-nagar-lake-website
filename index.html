@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasturi Nagar Lake - Community Rejuvenation Project</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Masonry.js -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -35,11 +40,11 @@
     <section id="home" class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Kasturi Nagar Lake</h1>
-            <p class="hero-subtitle">A Community-Driven Rejuvenation Story</p>
+            <h1 class="hero-title text-shadow">Kasturi Nagar Lake</h1>
+            <p class="hero-subtitle text-shadow">A Community-Driven Rejuvenation Story</p>
             <a href="#story" class="btn btn-primary">Discover Our Journey</a>
         </div>
-        <div class="hero-images">
+        <!-- <div class="hero-images">
             <div class="hero-image-card">
                 <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop" alt="Lake view 1">
             </div>
@@ -49,7 +54,7 @@
             <div class="hero-image-card">
                 <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop" alt="Lake view 3">
             </div>
-        </div>
+        </div> -->
     </section>
 
     <!-- Story Section -->
@@ -64,7 +69,7 @@
                     <p>Today, our lake is a testament to what a community can achieve when united by a common purpose. Every tree planted, every piece of trash removed, and every awareness campaign conducted represents the dedication of our volunteers who believe in preserving nature for future generations.</p>
                 </div>
                 <div class="story-image">
-                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=800&fit=crop" alt="Community volunteers">
+                    <img src="images/lake-view/lake-view-cgi-1.jpg" alt="Lake view CGI">
                     <div class="image-caption">Our dedicated volunteers working together</div>
                 </div>
             </div>
@@ -131,91 +136,153 @@
             </div>
             
             <div class="tab-content active" id="completed">
-                <h3>Achievements So Far</h3>
-                <div class="work-grid">
-                    <div class="work-card">
-                        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop" alt="Cleanup drive">
-                        <div class="work-card-content">
-                            <h4>Lake Cleanup</h4>
-                            <p>Removed over 5 tons of waste and debris from the lake and surrounding areas through regular cleanup drives.</p>
-                        </div>
+                <!-- Lake Cleanup Section -->
+                <div class="work-category">
+                    <div class="category-header">
+                        <h4>🧹 Lake Cleanup</h4>
+                        <p>Removed over 5 tons of waste and debris from the lake and surrounding areas through regular cleanup drives.</p>
                     </div>
-                    <div class="work-card">
-                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=400&h=300&fit=crop" alt="Tree plantation">
-                        <div class="work-card-content">
-                            <h4>Tree Plantation</h4>
-                            <p>Planted 1,000+ native trees and shrubs around the lake perimeter to prevent erosion and enhance biodiversity.</p>
-                        </div>
+                    <div class="category-gallery" data-masonry='{"percentPosition": true}'>
+                        <div class="gallery-item"><img src="images/cleanup-drive/cleanup-drive-1.jpeg" alt="Cleanup drive 1"></div>
+                        <div class="gallery-item"><img src="images/cleanup-drive/cleanup-drive-2.jpeg" alt="Cleanup drive 2"></div>
+                        <div class="gallery-item"><img src="images/cleanup-drive/cleanup-drive-3.jpeg" alt="Cleanup drive 3"></div>
+                        <div class="gallery-item"><img src="images/cleanup-drive/cleanup-drive-4.jpeg" alt="Cleanup drive 4"></div>
                     </div>
-                    <div class="work-card">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop" alt="Water treatment">
-                        <div class="work-card-content">
-                            <h4>Water Treatment</h4>
-                            <p>Installed natural filtration systems and conducted regular water quality testing to ensure clean water.</p>
-                        </div>
+                </div>
+
+                <!-- Infrastructure Development Section -->
+                <div class="work-category">
+                    <div class="category-header">
+                        <h4>🏗️ Infrastructure Development</h4>
+                        <p>Built walking paths, railings, fencing, and viewing platforms to make the lake accessible and safe for all community members.</p>
                     </div>
-                    <div class="work-card">
-                        <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&h=300&fit=crop" alt="Community awareness">
-                        <div class="work-card-content">
-                            <h4>Awareness Programs</h4>
-                            <p>Organized 30+ workshops and events to educate the community about environmental conservation.</p>
-                        </div>
+                    <div class="category-gallery" data-masonry='{"percentPosition": true}'>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-1.jpeg" alt="Infrastructure 1"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-2.jpeg" alt="Infrastructure 2"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-3.jpeg" alt="Infrastructure 3"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-4.jpeg" alt="Infrastructure 4"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-5.jpeg" alt="Infrastructure 5"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-6.jpeg" alt="Infrastructure 6"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-7.jpeg" alt="Infrastructure 7"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-8.jpeg" alt="Infrastructure 8"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-9.jpeg" alt="Infrastructure 9"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-10.jpeg" alt="Infrastructure 10"></div>
+                        <div class="gallery-item"><img src="images/infra-development/infra-development-11.jpeg" alt="Infrastructure 11"></div>
                     </div>
-                    <div class="work-card">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&h=300&fit=crop" alt="Walking path">
-                        <div class="work-card-content">
-                            <h4>Infrastructure</h4>
-                            <p>Built walking paths, benches, and viewing platforms to make the lake accessible to all community members.</p>
-                        </div>
+                </div>
+
+                <!-- Lake Views Section -->
+                <div class="work-category">
+                    <div class="category-header">
+                        <h4>🌊 Lake Restoration & Views</h4>
+                        <p>Successfully restored the lake ecosystem, improving water quality and attracting 25+ bird species back to the area.</p>
                     </div>
-                    <div class="work-card">
-                        <img src="https://images.unsplash.com/photo-1535083783855-76ae62b2914e?w=400&h=300&fit=crop" alt="Bird watching">
-                        <div class="work-card-content">
-                            <h4>Wildlife Return</h4>
-                            <p>Successfully attracted 25+ bird species back to the lake, indicating improved ecosystem health.</p>
-                        </div>
+                    <div class="category-gallery" data-masonry='{"percentPosition": true}'>
+                        <div class="gallery-item"><img src="images/lake-view/lake-view-1.jpeg" alt="Lake view 1"></div>
+                        <div class="gallery-item"><img src="images/lake-view/lake-view-2.jpeg" alt="Lake view 2"></div>
+                        <div class="gallery-item"><img src="images/lake-view/lake-view-4.jpeg" alt="Lake view 4"></div>
+                        <div class="gallery-item"><img src="images/lake-view/lake-view-5.jpeg" alt="Lake view 5"></div>
+                    </div>
+                </div>
+
+                <!-- Awareness Programs Section -->
+                <div class="work-category">
+                    <div class="category-header">
+                        <h4>📢 Awareness Programs</h4>
+                        <p>Organized 30+ workshops and events to educate the community about environmental conservation and sustainable practices.</p>
+                    </div>
+                    <div class="category-gallery" data-masonry='{"percentPosition": true}'>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-1.jpeg" alt="Awareness program 1"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-2.jpeg" alt="Awareness program 2"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-3.jpeg" alt="Awareness program 3"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-5.jpeg" alt="Awareness program 5"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-6.jpeg" alt="Awareness program 6"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-7.jpeg" alt="Awareness program 7"></div>
+                    </div>
+                </div>
+
+                <!-- In The News Section -->
+                <div class="work-category">
+                    <div class="category-header">
+                        <h4>📰 In The News</h4>
+                        <p>Our lake rejuvenation efforts have been recognized and featured in local media, inspiring other communities.</p>
+                    </div>
+                    <div class="category-gallery" data-masonry='{"percentPosition": true}'>
+                        <div class="gallery-item"><img src="images/in-the-news/in-the-news-1.jpeg" alt="News coverage 1"></div>
+                        <div class="gallery-item"><img src="images/in-the-news/in-the-news-2.png" alt="News coverage 2"></div>
                     </div>
                 </div>
             </div>
 
             <div class="tab-content" id="future">
-                <h3>Future Plans</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>2026 Q3</h4>
-                            <p><strong>Solar-Powered Lighting:</strong> Install solar lights around the lake for evening accessibility and safety.</p>
+                <div class="events-calendar" aria-label="Upcoming events calendar">
+                    <article class="event-card event-card-featured">
+                        <div class="event-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span class="event-month">June</span>
+                            <span class="event-day">03</span>
+                            <span class="event-year">2026</span>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>2026 Q4</h4>
-                            <p><strong>Floating Gardens:</strong> Create floating wetlands to further improve water quality and provide habitat for aquatic life.</p>
+                        <div class="event-details">
+                            <div class="event-meta">
+                                <!-- <span><i class="fa-regular fa-clock"></i> 6:00 PM</span> -->
+                                <span><i class="fa-solid fa-location-dot"></i> Kasturi Nagar Lake</span>
+                            </div>
+                            <h4>Google India LLC plantation</h4>
+                            <!-- <p>Description</p> -->
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>2027 Q1</h4>
-                            <p><strong>Education Center:</strong> Establish a small environmental education center for school visits and workshops.</p>
+                    </article>
+
+                    <article class="event-card">
+                        <div class="event-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span class="event-month">June</span>
+                            <span class="event-day">05</span>
+                            <span class="event-year">2026</span>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>2027 Q2</h4>
-                            <p><strong>Rainwater Harvesting:</strong> Implement rainwater harvesting systems to maintain lake water levels year-round.</p>
+                        <div class="event-details">
+                            <div class="event-meta">
+                                <!-- <span><i class="fa-regular fa-clock"></i> 8:30 AM</span> -->
+                                <span><i class="fa-solid fa-location-dot"></i> Kasturi Nagar Lake</span>
+                            </div>
+                            <h4>Sustainable Sunday's plantation</h4>
+                            <!-- <p>Description</p> -->
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>2027 Q3</h4>
-                            <p><strong>Butterfly Garden:</strong> Create a dedicated butterfly garden with native flowering plants to support pollinators.</p>
+                    </article>
+
+                    <article class="event-card">
+                        <div class="event-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span class="event-month">June</span>
+                            <span class="event-day">14</span>
+                            <span class="event-year">2026</span>
                         </div>
-                    </div>
+                        <div class="event-details">
+                            <div class="event-meta">
+                                <!-- <span><i class="fa-regular fa-clock"></i> 10:00 AM</span> -->
+                                <span><i class="fa-solid fa-location-dot"></i> Kasturi Nagar Lake</span>
+                            </div>
+                            <h4>Birthday plantation</h4>
+                            <!-- <p>Description</p> -->
+                        </div>
+                    </article>
+
+                    <article class="event-card">
+                        <div class="event-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span class="event-month">July</span>
+                            <span class="event-day">07</span>
+                            <span class="event-year">2026</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-meta">
+                                <!-- <span><i class="fa-regular fa-clock"></i> 7:30 AM</span> -->
+                                <span><i class="fa-solid fa-location-dot"></i> Kasturi Nagar Lake</span>
+                            </div>
+                            <h4>Van Mahotsava</h4>
+                            <!-- <p>Description</p> -->
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
@@ -272,33 +339,33 @@
                             <div class="contact-icon">📧</div>
                             <div>
                                 <h4>Email</h4>
-                                <p>info@kasturinagarlake.org</p>
+                                <p><a href="mailto:kasturinagarlake@gmail.com">kasturinagarlake@gmail.com</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">📱</div>
                             <div>
                                 <h4>Phone</h4>
-                                <p>+91 98765 43210</p>
+                                <p><a href="tel:+919980561739">+91 99805 61739</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">📍</div>
                             <div>
                                 <h4>Location</h4>
-                                <p>Kasturi Nagar, Bangalore, Karnataka</p>
+                                <p><a href="https://www.google.com/maps/place/kasturi+nagar+lake/data=!4m2!3m1!1s0x3bae11002a38a955:0x1aa5ec921e13f12e?sa=X&ved=1t:242&ictx=111" target="_blank" rel="noopener noreferrer">Kasturi Nagar, Bangalore, Karnataka</a></p>
                             </div>
                         </div>
-                        <div class="contact-item">
+                        <!-- <div class="contact-item">
                             <div class="contact-icon">⏰</div>
                             <div>
                                 <h4>Volunteer Hours</h4>
                                 <p>Saturdays & Sundays, 7:00 AM - 10:00 AM</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-link facebook" aria-label="Facebook">
+                        <!-- <a href="#" class="social-link facebook" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="social-link instagram" aria-label="Instagram">
@@ -306,38 +373,55 @@
                         </a>
                         <a href="#" class="social-link twitter" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link whatsapp" aria-label="WhatsApp">
+                        </a> -->
+                        <a href="https://wa.me/919980561739" class="social-link whatsapp" aria-label="Contact us on WhatsApp" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp Us</span>
                         </a>
                     </div>
                 </div>
                 <div class="contact-form">
                     <h3>Send Us a Message</h3>
-                    <form>
+                    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm">
+                        <!-- Hidden field for Netlify -->
+                        <input type="hidden" name="form-name" value="contact">
+                        
+                        <!-- Honeypot field for spam protection -->
+                        <p style="display: none;">
+                            <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                        </p>
+
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" name="name" id="name" placeholder="Name" required minlength="2" maxlength="100">
+                            <span class="error-message" id="nameError"></span>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
+                            <input type="email" name="email" id="email" placeholder="Email" required>
+                            <span class="error-message" id="emailError"></span>
                         </div>
                         <div class="form-group">
-                            <input type="tel" placeholder="Your Phone">
+                            <div class="phone-input-wrapper">
+                                <span class="phone-prefix">+91</span>
+                                <input type="tel" name="phone" id="phone" placeholder="Mobile" pattern="[6-9]\d{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6-9">
+                            </div>
+                            <span class="error-message" id="phoneError"></span>
                         </div>
                         <div class="form-group">
-                            <select required>
-                                <option value="">I want to...</option>
-                                <option value="volunteer">Volunteer</option>
-                                <option value="donate">Make a Donation</option>
-                                <option value="partner">Partner with Us</option>
-                                <option value="info">Get More Information</option>
-                                <option value="other">Other</option>
+                            <select name="interest" id="interest" required>
+                                <option value="I want to Volunteer" selected>I want to Volunteer</option>
+                                <option value="I want to Make a Donation">I want to Make a Donation</option>
+                                <option value="I want to Partner with You">I want to Partner with You</option>
+                                <option value="I want to Get More Information">I want to Get More Information</option>
+                                <option value="I want to Discuss Something Else">I want to Discuss Something Else</option>
                             </select>
+                            <span class="error-message" id="interestError"></span>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <textarea name="message" id="message" placeholder="Message" rows="5" required minlength="5" maxlength="1000"></textarea>
+                            <span class="error-message" id="messageError"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
+                        <div id="formStatus" class="form-status"></div>
                     </form>
                 </div>
             </div>
@@ -347,30 +431,6 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Kasturi Nagar Lake</h4>
-                    <p>Restoring nature, building community.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#story">Our Story</a></li>
-                        <li><a href="#mission">Mission</a></li>
-                        <li><a href="#work">Our Work</a></li>
-                        <li><a href="#about">About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <ul>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#">Volunteer</a></li>
-                        <li><a href="#">Donate</a></li>
-                        <li><a href="#">Newsletter</a></li>
-                    </ul>
-                </div>
-            </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Kasturi Nagar Lake Rejuvenation Project. All rights reserved.</p>
             </div>
@@ -389,6 +449,6 @@
         <div class="modal-counter" id="modalCounter"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
