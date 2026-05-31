@@ -834,6 +834,7 @@ section {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .social-link {
@@ -844,15 +845,35 @@ section {
     color: white;
     text-decoration: none;
     border-radius: 999px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     font-size: 1.1rem;
     padding: 0.85rem 1.2rem;
     font-weight: 600;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.social-link span,
+.social-link i {
+    min-width: 0;
+}
+
+.social-link span {
+    overflow-wrap: anywhere;
 }
 
 .social-link:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18);
+}
+
+.social-link span {
+    overflow-wrap: anywhere;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18);
 }
 
 .social-link.facebook {
@@ -1348,6 +1369,21 @@ section {
     .event-meta {
         flex-direction: column;
         gap: 0.6rem;
+    }
+
+    .contact-content,
+    .contact-info,
+    .contact-details,
+    .contact-item > div,
+    .contact-form,
+    .form-group,
+    .phone-input-wrapper {
+        min-width: 0;
+    }
+
+    .contact-form {
+        width: 100%;
+        overflow-x: hidden;
     }
 }
 

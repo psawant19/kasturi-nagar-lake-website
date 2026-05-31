@@ -156,8 +156,20 @@ if (contactForm) {
         // Disable submit button and show loading state
         submitButton.disabled = true;
         submitButton.textContent = 'Sending...';
+        formStatus.style.display = 'block';
         
         try {
+            // Generate unique enquiry ID
+            const timestamp = Date.now();
+            const randomNum = Math.floor(Math.random() * 1000);
+            const enquiryId = `ENQ${timestamp}${randomNum}`;
+            
+            // Set subject with enquiry ID
+            const subjectField = document.getElementById('enquirySubject');
+            if (subjectField) {
+                subjectField.value = `New Enquiry - www.kasturinagarlake.com (Enquiry ID: ${enquiryId})`;
+            }
+            
             // Get form data
             const formData = new FormData(contactForm);
             
@@ -166,14 +178,14 @@ if (contactForm) {
                 formData.set('phone', '+91 ' + phoneInput.value.trim());
             }
             
-            // Submit to Netlify
-            const response = await fetch('/', {
+            // Submit to Netlify - use the current page URL
+            const response = await fetch(window.location.pathname, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(formData).toString()
             });
             
-            if (response.ok) {
+            if (response.ok || response.status === 200) {
                 // Show success message
                 formStatus.className = 'form-status success';
                 formStatus.textContent = 'Thank you for your message! We will get back to you soon.';
