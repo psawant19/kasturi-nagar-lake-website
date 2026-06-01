@@ -46,146 +46,197 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// PROGRESSIVE TAB-BASED IMAGE LOADING SYSTEM
+// PROGRESSIVE IMAGE LOADING SYSTEM
 // ============================================
-
-// Tab functionality with lazy loading for Work section
-const tabButtons = document.querySelectorAll('.tab-btn');
-const tabContents = document.querySelectorAll('.tab-content');
 
 // Track which categories have been loaded
 const loadedCategories = new Set();
 
-// Create loading progress indicator
-const loadingProgress = document.createElement('div');
-loadingProgress.className = 'loading-progress';
-loadingProgress.innerHTML = `
-    <div class="loading-progress-spinner"></div>
-    <span class="loading-progress-text">Loading images...</span>
-`;
-document.body.appendChild(loadingProgress);
+// Loading progress indicator removed - using per-category preloaders instead
 
-tabButtons.forEach(button => {
+// ============================================
+// CATEGORY FILTER FUNCTIONALITY
+// ============================================
+
+// CONFIGURATION: Default category to load on page load
+// Change this value to set a different default category
+// Valid values: 'awareness', 'cleanup', 'infrastructure', 'lake-views', 'tree-plantation', 'wildlife', 'news'
+const DEFAULT_CATEGORY = 'awareness';
+
+// Category filter buttons
+const categoryFilterButtons = document.querySelectorAll('.category-filter-btn');
+const workCategories = document.querySelectorAll('.work-category');
+
+// Track active category
+let activeCategory = DEFAULT_CATEGORY;
+
+// Store Masonry instances for each gallery
+const masonryInstances = new Map();
+
+// Add click handlers to category filter buttons
+categoryFilterButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Remove active class from all buttons and contents
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
+        // Remove active class from all buttons
+        categoryFilterButtons.forEach(btn => btn.classList.remove('active'));
         
         // Add active class to clicked button
         button.classList.add('active');
         
-        // Show corresponding content
-        const tabId = button.getAttribute('data-tab');
-        const targetContent = document.getElementById(tabId);
-        if (targetContent) {
-            targetContent.classList.add('active');
-            
-            // Load images for this tab if not already loaded
-            loadTabImages(targetContent);
-        }
+        // Get selected category
+        const selectedCategory = button.getAttribute('data-category');
+        activeCategory = selectedCategory;
+        
+        // Filter categories
+        filterCategories(selectedCategory);
+        
+        // Scroll to the category filters to keep them in viewport
+        setTimeout(() => {
+            const categoryFilters = document.querySelector('.category-filters');
+            if (categoryFilters) {
+                const navbar = document.querySelector('.navbar');
+                const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                const targetPosition = categoryFilters.offsetTop - navbarHeight - 20; // 20px extra padding
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 100); // Small delay to ensure display changes are applied
     });
 });
 
-// Function to load images for a specific tab
-function loadTabImages(tabContent) {
-    const categories = tabContent.querySelectorAll('.work-category[data-loaded="false"]');
-    
-    if (categories.length === 0) {
-        return; // All categories already loaded
-    }
-    
-    categories.forEach(category => {
-        const categoryHeader = category.querySelector('.category-header h4');
-        const categoryName = categoryHeader ? categoryHeader.textContent.trim() : 'Category';
+// Function to filter and show/hide categories
+function filterCategories(category) {
+    workCategories.forEach(workCategory => {
+        const categoryType = workCategory.getAttribute('data-category');
         
-        // Skip if already loaded
-        if (loadedCategories.has(categoryName)) {
-            return;
-        }
-        
-        const preloader = category.querySelector('.category-preloader');
-        const gallery = category.querySelector('.category-gallery');
-        const images = gallery.querySelectorAll('img');
-        
-        if (images.length === 0) {
-            // No images, mark as loaded
-            category.setAttribute('data-loaded', 'true');
-            if (preloader) preloader.classList.add('hidden');
-            return;
-        }
-        
-        // Show loading progress
-        loadingProgress.classList.add('active');
-        updateLoadingProgress(0, images.length);
-        
-        let loadedCount = 0;
-        const totalImages = images.length;
-        
-        // Load each image with staggered timing
-        images.forEach((img, index) => {
-            // Add loading class to gallery item
-            const galleryItem = img.closest('.gallery-item');
-            if (galleryItem) {
-                galleryItem.classList.add('loading');
-            }
+        if (category === 'all') {
+            // Show all categories
+            workCategory.style.display = 'block';
             
-            // Stagger image loading for smooth effect
-            setTimeout(() => {
-                if (img.complete && img.naturalHeight !== 0) {
-                    // Image already loaded (cached)
-                    onImageLoad(img);
-                } else {
-                    // Load image
-                    img.addEventListener('load', () => onImageLoad(img));
-                    img.addEventListener('error', () => onImageError(img));
-                }
-            }, index * 30); // 30ms delay between each image
-        });
-        
-        function onImageLoad(img) {
-            img.classList.add('loaded');
-            const galleryItem = img.closest('.gallery-item');
-            if (galleryItem) {
-                galleryItem.classList.remove('loading');
+            // Load images if not already loaded
+            if (workCategory.getAttribute('data-loaded') === 'false') {
+                loadCategoryImages(workCategory);
+            } else {
+                // Refresh Masonry layout for already loaded categories
+                refreshMasonryLayout(workCategory);
             }
-            loadedCount++;
+        } else if (categoryType === category) {
+            // Show matching category
+            workCategory.style.display = 'block';
             
-            // Update progress
-            updateLoadingProgress(loadedCount, totalImages);
-            
-            // When all images loaded
-            if (loadedCount === totalImages) {
-                finishCategoryLoading(category, gallery, categoryName, preloader);
+            // Load images if not already loaded
+            if (workCategory.getAttribute('data-loaded') === 'false') {
+                loadCategoryImages(workCategory);
+            } else {
+                // Refresh Masonry layout for already loaded categories
+                refreshMasonryLayout(workCategory);
             }
-        }
-        
-        function onImageError(img) {
-            console.warn('Failed to load image:', img.src);
-            // Still count as loaded to prevent hanging
-            img.classList.add('loaded');
-            const galleryItem = img.closest('.gallery-item');
-            if (galleryItem) {
-                galleryItem.classList.remove('loading');
-            }
-            loadedCount++;
-            
-            // Update progress
-            updateLoadingProgress(loadedCount, totalImages);
-            
-            if (loadedCount === totalImages) {
-                finishCategoryLoading(category, gallery, categoryName, preloader);
-            }
+        } else {
+            // Hide non-matching categories
+            workCategory.style.display = 'none';
         }
     });
 }
 
-// Update loading progress indicator
-function updateLoadingProgress(loaded, total) {
-    const progressText = loadingProgress.querySelector('.loading-progress-text');
-    if (progressText) {
-        progressText.textContent = `Loading images... ${loaded}/${total}`;
+// Function to refresh Masonry layout for a category
+function refreshMasonryLayout(category) {
+    const gallery = category.querySelector('.category-gallery');
+    if (!gallery) return;
+    
+    // Small delay to ensure display changes are applied
+    setTimeout(() => {
+        const masonryInstance = masonryInstances.get(gallery);
+        if (masonryInstance) {
+            // Refresh existing Masonry instance
+            masonryInstance.layout();
+        } else {
+            // Initialize Masonry if not already done
+            initializeMasonryForGallery(gallery);
+        }
+    }, 50);
+}
+
+// Function to load images for a specific category
+function loadCategoryImages(category) {
+    const categoryHeader = category.querySelector('.category-header h4');
+    const categoryName = categoryHeader ? categoryHeader.textContent.trim() : 'Category';
+    
+    // Skip if already loaded
+    if (loadedCategories.has(categoryName)) {
+        return;
+    }
+    
+    const preloader = category.querySelector('.category-preloader');
+    const gallery = category.querySelector('.category-gallery');
+    const images = gallery.querySelectorAll('img');
+    
+    if (images.length === 0) {
+        // No images, mark as loaded
+        category.setAttribute('data-loaded', 'true');
+        if (preloader) preloader.classList.add('hidden');
+        return;
+    }
+    
+    let loadedCount = 0;
+    const totalImages = images.length;
+    
+    // Load each image with staggered timing
+    images.forEach((img, index) => {
+        // Add loading class to gallery item
+        const galleryItem = img.closest('.gallery-item');
+        if (galleryItem) {
+            galleryItem.classList.add('loading');
+        }
+        
+        // Stagger image loading for smooth effect
+        setTimeout(() => {
+            if (img.complete) {
+                // Image already loaded or failed to load (cached)
+                if (img.naturalHeight !== 0) {
+                    onImageLoad(img);
+                } else {
+                    // Image failed to load
+                    onImageError(img);
+                }
+            } else {
+                // Load image
+                img.addEventListener('load', () => onImageLoad(img));
+                img.addEventListener('error', () => onImageError(img));
+            }
+        }, index * 30); // 30ms delay between each image
+    });
+    
+    function onImageLoad(img) {
+        img.classList.add('loaded');
+        const galleryItem = img.closest('.gallery-item');
+        if (galleryItem) {
+            galleryItem.classList.remove('loading');
+        }
+        loadedCount++;
+        
+        // When all images loaded
+        if (loadedCount === totalImages) {
+            finishCategoryLoading(category, gallery, categoryName, preloader);
+        }
+    }
+    
+    function onImageError(img) {
+        console.warn('Failed to load image:', img.src);
+        // Still count as loaded to prevent hanging
+        img.classList.add('loaded');
+        const galleryItem = img.closest('.gallery-item');
+        if (galleryItem) {
+            galleryItem.classList.remove('loading');
+        }
+        loadedCount++;
+        
+        if (loadedCount === totalImages) {
+            finishCategoryLoading(category, gallery, categoryName, preloader);
+        }
     }
 }
+
 
 // Finish loading a category
 function finishCategoryLoading(category, gallery, categoryName, preloader) {
@@ -197,11 +248,6 @@ function finishCategoryLoading(category, gallery, categoryName, preloader) {
     // Mark category as loaded
     category.setAttribute('data-loaded', 'true');
     loadedCategories.add(categoryName);
-    
-    // Hide loading progress after a short delay
-    setTimeout(() => {
-        loadingProgress.classList.remove('active');
-    }, 500);
     
     // Initialize Masonry for this gallery after images are loaded
     setTimeout(() => {
@@ -216,25 +262,26 @@ function initializeMasonryForGallery(gallery) {
     if (!gallery) return;
     
     imagesLoaded(gallery, function() {
-        new Masonry(gallery, {
+        const masonryInstance = new Masonry(gallery, {
             itemSelector: '.gallery-item',
             columnWidth: '.gallery-item',
             percentPosition: true,
             gutter: 20,
             transitionDuration: '0.3s'
         });
+        
+        // Store the Masonry instance for later use
+        masonryInstances.set(gallery, masonryInstance);
     });
 }
 
-// Load images for the initially active tab on page load
+// Load images for the work section on page load
 document.addEventListener('DOMContentLoaded', () => {
-    const activeTab = document.querySelector('.tab-content.active');
-    if (activeTab) {
-        // Small delay to ensure DOM is fully ready
-        setTimeout(() => {
-            loadTabImages(activeTab);
-        }, 100);
-    }
+    // Small delay to ensure DOM is fully ready
+    setTimeout(() => {
+        // Load the default category
+        filterCategories(DEFAULT_CATEGORY);
+    }, 100);
 });
 
 // Intersection Observer for scroll animations
@@ -516,10 +563,24 @@ function showImage(index) {
     
     modalImage.src = img.src;
     modalImage.alt = img.alt;
-    modalCaption.textContent = getImageCaption(img);
     
     // Update counter
     modalCounter.textContent = `${index + 1} / ${currentImageGroup.length}`;
+    
+    // Get caption text and place counter on the right
+    const captionText = getImageCaption(img);
+    if (captionText) {
+        // Create a span for the caption text
+        const captionSpan = document.createElement('span');
+        captionSpan.textContent = captionText;
+        modalCaption.innerHTML = '';
+        modalCaption.appendChild(captionSpan);
+        modalCaption.appendChild(modalCounter);
+    } else {
+        // If no caption, just show counter
+        modalCaption.innerHTML = '';
+        modalCaption.appendChild(modalCounter);
+    }
     
     // Update navigation buttons
     modalPrev.disabled = index === 0;
@@ -528,7 +589,18 @@ function showImage(index) {
 
 // Get images from the same section
 function getImageGroup(clickedImg) {
-    // Find the closest section
+    // Check if image is in a work category
+    const workCategory = clickedImg.closest('.work-category');
+    if (workCategory) {
+        // Only get images from the current visible category
+        const categoryGallery = workCategory.querySelector('.category-gallery');
+        if (categoryGallery) {
+            const images = Array.from(categoryGallery.querySelectorAll('img:not(.modal-image)'));
+            return images;
+        }
+    }
+    
+    // Find the closest section for other images
     const section = clickedImg.closest('section');
     if (!section) {
         return [clickedImg];

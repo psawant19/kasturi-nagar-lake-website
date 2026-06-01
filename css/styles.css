@@ -34,6 +34,13 @@ body {
     padding: 0 20px;
 }
 
+/* Mobile optimization for container padding */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+}
+
 /* Navigation */
 .navbar {
     position: fixed;
@@ -362,7 +369,7 @@ section {
     padding: 2.5rem;
     border-radius: 15px;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 2px solid var(--secondary-color);
 }
 
 .mission-card:hover {
@@ -499,6 +506,54 @@ section {
     line-height: 1.6;
 }
 
+/* Category Filter Buttons */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 3rem;
+}
+
+.category-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.category-filter-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--secondary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-filter-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(44, 122, 123, 0.3);
+}
+
+.category-filter-btn .filter-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.category-filter-btn .filter-text {
+    white-space: nowrap;
+}
+
 /* New Category Gallery Styles */
 .work-category {
     margin-bottom: 4rem;
@@ -547,6 +602,16 @@ section {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
+/* Events Section */
+.events {
+    padding: 5rem 0;
+    background: white;
+}
+
+.events-content {
+    /* No box styling - flows naturally with section */
+}
+
 /* Events Calendar - Vertical Timeline Style */
 .events-calendar {
     max-width: 800px;
@@ -568,18 +633,19 @@ section {
 .event-card {
     position: relative;
     margin-bottom: 3rem;
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
+    background: var(--light-color);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid var(--secondary-color);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .event-card::before {
     content: '';
     position: absolute;
     left: -38px;
-    top: 1.5rem;
+    top: 2rem;
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -589,8 +655,9 @@ section {
 }
 
 .event-card:hover {
-    transform: translateX(5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .event-card-featured {
@@ -704,7 +771,7 @@ section {
 
 /* About Section */
 .about {
-    background: white;
+    background: var(--light-color);
 }
 
 .about-content {
@@ -770,7 +837,7 @@ section {
 
 /* Contact Section */
 .contact {
-    background: var(--light-color);
+    background: white;
 }
 
 .contact-content {
@@ -898,10 +965,11 @@ section {
 }
 
 .contact-form {
-    background: white;
+    background: var(--light-color);
     padding: 2.5rem;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--secondary-color)
 }
 
 .contact-form h3 {
@@ -1090,6 +1158,32 @@ section {
 @media (max-width: 992px) {
     .category-gallery .gallery-item {
         width: calc(50% - 15px);
+    }
+    
+    .category-filters {
+        gap: 8px;
+        padding: 1rem;
+    }
+    
+    .category-filter-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .category-filter-btn .filter-icon {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .category-filter-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 
@@ -1298,18 +1392,23 @@ section {
     background: rgba(255, 255, 255, 0.9);
 }
 
+.modal-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
 .modal-counter {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--text-color);
-    padding: 10px 20px;
-    border-radius: 25px;
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
-    z-index: 10001;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .modal-caption:empty {
@@ -1341,7 +1440,7 @@ section {
     }
 
     section {
-        padding: 60px 20px;
+        padding: 40px 10px;
     }
 
     .events-calendar {

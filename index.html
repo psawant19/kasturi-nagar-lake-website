@@ -25,6 +25,7 @@
                 <li><a href="#story">Our Story</a></li>
                 <li><a href="#mission">Mission</a></li>
                 <li><a href="#work">Our Work</a></li>
+                <li><a href="#events">Events</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
@@ -130,14 +131,79 @@
     <section id="work" class="work">
         <div class="container">
             <h2 class="section-title">Our Work</h2>
-            <div class="work-tabs">
-                <button class="tab-btn active" data-tab="completed">Work Done</button>
-                <button class="tab-btn" data-tab="future">Future Plans</button>
-            </div>
             
-            <div class="tab-content active" id="completed">
+            <div class="work-content">
+                <!-- Category Filter Buttons -->
+                <div class="category-filters">
+                    <button class="category-filter-btn active" data-category="awareness">
+                        <span class="filter-icon">📢</span>
+                        <span class="filter-text">Awareness Programs</span>
+                    </button>
+                    <button class="category-filter-btn" data-category="cleanup">
+                        <span class="filter-icon">🧹</span>
+                        <span class="filter-text">Lake Cleanup</span>
+                    </button>
+                    <button class="category-filter-btn" data-category="infrastructure">
+                        <span class="filter-icon">🏗️</span>
+                        <span class="filter-text">Infrastructure</span>
+                    </button>
+                    <button class="category-filter-btn" data-category="lake-views">
+                        <span class="filter-icon">🌊</span>
+                        <span class="filter-text">Lake Views</span>
+                    </button>
+                    <button class="category-filter-btn" data-category="tree-plantation">
+                        <span class="filter-icon">🌳</span>
+                        <span class="filter-text">Tree Plantation</span>
+                    </button>
+                    <button class="category-filter-btn" data-category="wildlife">
+                        <span class="filter-icon">🦜</span>
+                        <span class="filter-text">Birds & Animals</span>
+                    </button>
+                    <button class="category-filter-btn" data-category="news">
+                        <span class="filter-icon">📰</span>
+                        <span class="filter-text">In The News</span>
+                    </button>
+                </div>
+
+                <!-- Awareness Programs Section -->
+                <div class="work-category" data-loaded="false" data-category="awareness">
+                    <div class="category-header">
+                        <h4>📢 Awareness Programs</h4>
+                        <p>Organized 30+ workshops and events to educate the community about environmental conservation and sustainable practices.</p>
+                    </div>
+                    <div class="category-preloader">
+                        <div class="preloader-spinner"></div>
+                        <p>Loading images...</p>
+                    </div>
+                    <div class="category-gallery" data-masonry='{"percentPosition": true}'>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-1.jpeg" alt="Awareness program 1"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-2.jpeg" alt="Awareness program 2"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-3.jpeg" alt="Awareness program 3"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-4.jpeg" alt="Awareness program 4"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-5.jpeg" alt="Awareness program 5"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-6.jpeg" alt="Awareness program 6"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-7.jpeg" alt="Awareness program 7"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-8.jpeg" alt="Awareness program 8"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-9.jpeg" alt="Awareness program 9"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-10.jpeg" alt="Awareness program 10"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-11.jpeg" alt="Awareness program 11"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-12.jpeg" alt="Awareness program 12"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-13.jpeg" alt="Awareness program 13"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-14.jpeg" alt="Awareness program 14"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-15.jpeg" alt="Awareness program 15"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-16.jpeg" alt="Awareness program 16"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-17.jpeg" alt="Awareness program 17"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-18.jpeg" alt="Awareness program 18"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-19.jpeg" alt="Awareness program 19"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-20.jpeg" alt="Awareness program 20"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-21.jpeg" alt="Awareness program 21"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-22.jpeg" alt="Awareness program 22"></div>
+                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-23.jpeg" alt="Awareness program 23"></div>
+                    </div>
+                </div>
+
                 <!-- Lake Cleanup Section -->
-                <div class="work-category" data-loaded="false">
+                <div class="work-category" data-loaded="false" data-category="cleanup">
                     <div class="category-header">
                         <h4>🧹 Lake Cleanup</h4>
                         <p>Removed over 5 tons of waste and debris from the lake and surrounding areas through regular cleanup drives.</p>
@@ -164,7 +230,7 @@
                 </div>
 
                 <!-- Infrastructure Development Section -->
-                <div class="work-category" data-loaded="false">
+                <div class="work-category" data-loaded="false" data-category="infrastructure">
                     <div class="category-header">
                         <h4>🏗️ Infrastructure Development</h4>
                         <p>Built walking paths, railings, fencing, and viewing platforms to make the lake accessible and safe for all community members.</p>
@@ -209,7 +275,7 @@
                 </div>
 
                 <!-- Lake Views Section -->
-                <div class="work-category" data-loaded="false">
+                <div class="work-category" data-loaded="false" data-category="lake-views">
                     <div class="category-header">
                         <h4>🌊 Lake Restoration & Views</h4>
                         <p>Successfully restored the lake ecosystem, improving water quality and attracting 25+ bird species back to the area.</p>
@@ -221,6 +287,7 @@
                     <div class="category-gallery" data-masonry='{"percentPosition": true}'>
                         <div class="gallery-item"><img src="images/lake-view/lake-view-1.jpeg" alt="Lake view 1"></div>
                         <div class="gallery-item"><img src="images/lake-view/lake-view-2.jpeg" alt="Lake view 2"></div>
+                        <div class="gallery-item"><img src="images/lake-view/lake-view-3.jpeg" alt="Lake view 3"></div>
                         <div class="gallery-item"><img src="images/lake-view/lake-view-4.jpeg" alt="Lake view 4"></div>
                         <div class="gallery-item"><img src="images/lake-view/lake-view-5.jpeg" alt="Lake view 5"></div>
                         <div class="gallery-item"><img src="images/lake-view/lake-view-6.jpeg" alt="Lake view 6"></div>
@@ -235,12 +302,11 @@
                         <div class="gallery-item"><img src="images/lake-view/lake-view-15.jpeg" alt="Lake view 15"></div>
                         <div class="gallery-item"><img src="images/lake-view/lake-view-16.jpeg" alt="Lake view 16"></div>
                         <div class="gallery-item"><img src="images/lake-view/lake-view-17.jpeg" alt="Lake view 17"></div>
-                        <div class="gallery-item"><img src="images/lake-view/lake-view-18.jpeg" alt="Lake view 18"></div>
                     </div>
                 </div>
 
                 <!-- Tree Plantation Section -->
-                <div class="work-category" data-loaded="false">
+                <div class="work-category" data-loaded="false" data-category="tree-plantation">
                     <div class="category-header">
                         <h4>🌳 Tree Plantation</h4>
                         <p>Planted over 500 native trees and plants around the lake to enhance biodiversity and create a green corridor for wildlife.</p>
@@ -268,45 +334,8 @@
                     </div>
                 </div>
 
-                <!-- Awareness Programs Section -->
-                <div class="work-category" data-loaded="false">
-                    <div class="category-header">
-                        <h4>📢 Awareness Programs</h4>
-                        <p>Organized 30+ workshops and events to educate the community about environmental conservation and sustainable practices.</p>
-                    </div>
-                    <div class="category-preloader">
-                        <div class="preloader-spinner"></div>
-                        <p>Loading images...</p>
-                    </div>
-                    <div class="category-gallery" data-masonry='{"percentPosition": true}'>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-1.jpeg" alt="Awareness program 1"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-2.jpeg" alt="Awareness program 2"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-3.jpeg" alt="Awareness program 3"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-5.jpeg" alt="Awareness program 5"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-6.jpeg" alt="Awareness program 6"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-7.jpeg" alt="Awareness program 7"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-8.jpeg" alt="Awareness program 8"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-9.jpeg" alt="Awareness program 9"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-10.jpeg" alt="Awareness program 10"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-11.jpeg" alt="Awareness program 11"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-12.jpeg" alt="Awareness program 12"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-13.jpeg" alt="Awareness program 13"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-14.jpeg" alt="Awareness program 14"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-15.jpeg" alt="Awareness program 15"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-16.jpeg" alt="Awareness program 16"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-17.jpeg" alt="Awareness program 17"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-18.jpeg" alt="Awareness program 18"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-19.jpeg" alt="Awareness program 19"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-20.jpeg" alt="Awareness program 20"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-21.jpeg" alt="Awareness program 21"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-22.jpeg" alt="Awareness program 22"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-23.jpeg" alt="Awareness program 23"></div>
-                        <div class="gallery-item"><img src="images/awareness-program/awareness-program-24.jpeg" alt="Awareness program 24"></div>
-                    </div>
-                </div>
-
                 <!-- Birds and Animals Section -->
-                <div class="work-category" data-loaded="false">
+                <div class="work-category" data-loaded="false" data-category="wildlife">
                     <div class="category-header">
                         <h4>🦜 Birds & Animals</h4>
                         <p>Our restoration efforts have attracted diverse wildlife back to the lake, including numerous bird species, butterflies, and other fauna.</p>
@@ -325,7 +354,7 @@
                 </div>
 
                 <!-- In The News Section -->
-                <div class="work-category" data-loaded="false">
+                <div class="work-category" data-loaded="false" data-category="news">
                     <div class="category-header">
                         <h4>📰 In The News</h4>
                         <p>Our lake rejuvenation efforts have been recognized and featured in local media, inspiring other communities.</p>
@@ -337,11 +366,21 @@
                     <div class="category-gallery" data-masonry='{"percentPosition": true}'>
                         <div class="gallery-item"><img src="images/in-the-news/in-the-news-1.jpeg" alt="News coverage 1"></div>
                         <div class="gallery-item"><img src="images/in-the-news/in-the-news-2.png" alt="News coverage 2"></div>
+                        <div class="gallery-item"><img src="images/in-the-news/in-the-news-3.jpg" alt="News coverage 3"></div>
+                        <div class="gallery-item"><img src="images/in-the-news/in-the-news-4.jpg" alt="News coverage 4"></div>
+                        <div class="gallery-item"><img src="images/in-the-news/in-the-news-5.jpg" alt="News coverage 5"></div>
+                        <div class="gallery-item"><img src="images/in-the-news/in-the-news-6.jpg" alt="News coverage 6"></div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="tab-content" id="future">
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <h2 class="section-title">Upcoming Events</h2>
+            <div class="events-content">
                 <div class="events-calendar" aria-label="Upcoming events calendar">
                     <article class="event-card event-card-featured">
                         <div class="event-date">
@@ -503,7 +542,7 @@
                         </a> -->
                         <a href="https://wa.me/919980561739" class="social-link whatsapp" aria-label="Contact us on WhatsApp" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-whatsapp"></i>
-                            <span>WhatsApp Us</span>
+                            <span>WhatsApp</span>
                         </a>
                     </div>
                 </div>
@@ -574,9 +613,10 @@
         <button class="modal-nav modal-next" id="modalNext">&#10095;</button>
         <div class="modal-content-wrapper">
             <img class="modal-image" id="modalImage" src="" alt="">
-            <div class="modal-caption" id="modalCaption"></div>
+            <div class="modal-caption" id="modalCaption">
+                <span class="modal-counter" id="modalCounter"></span>
+            </div>
         </div>
-        <div class="modal-counter" id="modalCounter"></div>
     </div>
 
     <script src="js/script.js"></script>
