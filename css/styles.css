@@ -64,6 +64,13 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-brand:hover {
+    opacity: 0.8;
 }
 
 .nav-menu {
@@ -117,6 +124,7 @@ body {
 .hero {
     min-height: 100vh;
     background: url('../images/lake-view/lake-view-home-page.avif') center center/cover no-repeat;
+    background-color: #2c7a7b; /* Fallback color while image loads */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -124,6 +132,16 @@ body {
     align-items: center;
     padding: 100px 20px 50px;
     overflow: hidden;
+    animation: fadeInBackground 0.6s ease-in;
+}
+
+@keyframes fadeInBackground {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .hero-overlay {

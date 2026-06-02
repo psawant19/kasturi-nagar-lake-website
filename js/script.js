@@ -191,7 +191,15 @@ function loadCategoryImages(category) {
         
         // Stagger image loading for smooth effect
         setTimeout(() => {
-            if (img.complete) {
+            // Check if image has data-src attribute (lazy loading)
+            const dataSrc = img.getAttribute('data-src');
+            if (dataSrc && !img.src) {
+                // Set src from data-src to trigger loading
+                img.src = dataSrc;
+                img.removeAttribute('data-src');
+            }
+            
+            if (img.complete && img.src) {
                 // Image already loaded or failed to load (cached)
                 if (img.naturalHeight !== 0) {
                     onImageLoad(img);
@@ -199,10 +207,13 @@ function loadCategoryImages(category) {
                     // Image failed to load
                     onImageError(img);
                 }
-            } else {
+            } else if (img.src) {
                 // Load image
                 img.addEventListener('load', () => onImageLoad(img));
                 img.addEventListener('error', () => onImageError(img));
+            } else {
+                // No src set, count as error
+                onImageError(img);
             }
         }, index * 30); // 30ms delay between each image
     });
