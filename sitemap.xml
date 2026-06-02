@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://kasturinagarlake.com/</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://kasturinagarlake.com/images/lake-view/lake-view-cgi-1.jpg</image:loc>
+      <image:title>Kasturi Nagar Lake - Rejuvenated Community Lake</image:title>
+      <image:caption>Beautiful view of the restored Kasturi Nagar Lake in Bangalore</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Story Section -->
+  <url>
+    <loc>https://kasturinagarlake.com/#story</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Mission Section -->
+  <url>
+    <loc>https://kasturinagarlake.com/#mission</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Our Work Section -->
+  <url>
+    <loc>https://kasturinagarlake.com/#work</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Events Section -->
+  <url>
+    <loc>https://kasturinagarlake.com/#events</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- About Section -->
+  <url>
+    <loc>https://kasturinagarlake.com/#about</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Partners Section -->
+  <url>
+    <loc>https://kasturinagarlake.com/#partners</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact Section -->
+  <url>
+    <loc>https://kasturinagarlake.com/#contact</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
+
+<!-- Made with Bob -->
