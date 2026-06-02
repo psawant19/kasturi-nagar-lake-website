@@ -352,7 +352,7 @@ section {
 
 .mission-intro {
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: var(--text-light);
     max-width: 800px;
     margin: 0 auto 3rem;
@@ -522,7 +522,7 @@ section {
     background: white;
     border: 2px solid #e2e8f0;
     border-radius: 25px;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-color);
     cursor: pointer;
@@ -573,12 +573,8 @@ section {
 
 .category-header p {
     color: #666;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     line-height: 1.6;
-}
-
-.category-gallery {
-    /* Masonry layout will be applied via JavaScript */
 }
 
 .category-gallery .gallery-item {
@@ -604,7 +600,6 @@ section {
 
 /* Events Section */
 .events {
-    padding: 5rem 0;
     background: white;
 }
 
@@ -740,7 +735,7 @@ section {
     flex-wrap: wrap;
     gap: 1rem 1.5rem;
     color: var(--text-light);
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .event-card-featured .event-meta {
@@ -833,6 +828,84 @@ section {
 .join-option p {
     font-size: 0.9rem;
     opacity: 0.9;
+}
+
+/* Partners Section */
+.partners {
+    padding: 5rem 0;
+    background: var(--light-color);
+}
+
+.partners-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.partner-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--secondary-color);
+}
+
+.partner-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.partner-logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    filter: grayscale(0%);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.partner-card:hover .partner-logo img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* Mobile responsiveness for Partners */
+@media (max-width: 768px) {
+    .partners-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .partner-card {
+        padding: 1.5rem;
+    }
+    
+    .partner-logo img {
+        max-height: 100px;
+    }
 }
 
 /* Contact Section */
@@ -1284,6 +1357,81 @@ section {
     }
 }
 
+/* Video Play Overlay */
+.video-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 0, 0, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.video-play-overlay i {
+    color: white;
+    font-size: 2.5rem;
+    margin-left: 4px;
+}
+
+.gallery-item[data-youtube-id] {
+    position: relative;
+    cursor: pointer;
+}
+
+.gallery-item[data-youtube-id]:hover .video-play-overlay {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(255, 0, 0, 1);
+    box-shadow: 0 6px 30px rgba(255, 0, 0, 0.4);
+}
+
+.gallery-item[data-youtube-id] img {
+    transition: transform 0.3s ease;
+}
+
+.gallery-item[data-youtube-id]:hover img {
+    transform: scale(1.05);
+}
+
+/* YouTube Video Container in Modal */
+.modal-video-container {
+    width: 90vw;
+    max-width: 1400px;
+    max-height: 80vh;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+.modal-video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Adjust modal content wrapper for videos */
+.modal-content-wrapper:has(.modal-video-container) {
+    max-width: 95%;
+    max-height: 95%;
+}
+
+/* Responsive adjustments for video */
+@media (max-width: 768px) {
+    .modal-video-container {
+        width: 95vw;
+        max-height: 70vh;
+    }
+}
+
 /* Image Modal */
 .modal {
     display: none;
@@ -1345,7 +1493,7 @@ section {
     border-radius: 0 0 10px 10px;
     text-align: left;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.7;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);

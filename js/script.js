@@ -521,6 +521,7 @@ const modalCounter = document.getElementById('modalCounter');
 
 let currentImageIndex = 0;
 let currentImageGroup = [];
+let currentVideoId = null;
 
 // Get caption for an image
 function getImageCaption(img) {
@@ -559,27 +560,91 @@ function showImage(index) {
     if (index < 0 || index >= currentImageGroup.length) return;
     
     currentImageIndex = index;
-    const img = currentImageGroup[index];
+    const item = currentImageGroup[index];
     
-    modalImage.src = img.src;
-    modalImage.alt = img.alt;
+    // Check if this is a video item
+    const galleryItem = item.closest('.gallery-item');
+    const youtubeId = galleryItem ? galleryItem.getAttribute('data-youtube-id') : null;
     
-    // Update counter
-    modalCounter.textContent = `${index + 1} / ${currentImageGroup.length}`;
+    // Get modal content wrapper
+    const modalContentWrapper = document.querySelector('.modal-content-wrapper');
     
-    // Get caption text and place counter on the right
-    const captionText = getImageCaption(img);
-    if (captionText) {
-        // Create a span for the caption text
+    // Stop any currently playing video before switching
+    if (currentVideoId) {
+        const videoContainer = modalContentWrapper.querySelector('.modal-video-container');
+        if (videoContainer) {
+            videoContainer.innerHTML = '';
+        }
+        currentVideoId = null;
+    }
+    
+    if (youtubeId) {
+        // Show YouTube video
+        currentVideoId = youtubeId;
+        
+        // Hide image, show video container
+        modalImage.style.display = 'none';
+        
+        // Create or update video container
+        let videoContainer = modalContentWrapper.querySelector('.modal-video-container');
+        if (!videoContainer) {
+            videoContainer = document.createElement('div');
+            videoContainer.className = 'modal-video-container';
+            modalContentWrapper.insertBefore(videoContainer, modalCaption);
+        }
+        videoContainer.style.display = 'block';
+        
+        // Embed YouTube video with autoplay
+        videoContainer.innerHTML = `
+            <iframe
+                src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        `;
+        
+        // Update counter
+        modalCounter.textContent = `${index + 1} / ${currentImageGroup.length}`;
+        
+        // Set caption for video
+        const captionText = item.alt || 'YouTube Video';
         const captionSpan = document.createElement('span');
         captionSpan.textContent = captionText;
         modalCaption.innerHTML = '';
         modalCaption.appendChild(captionSpan);
         modalCaption.appendChild(modalCounter);
     } else {
-        // If no caption, just show counter
-        modalCaption.innerHTML = '';
-        modalCaption.appendChild(modalCounter);
+        // Show regular image
+        currentVideoId = null;
+        
+        // Hide video container if exists
+        const videoContainer = modalContentWrapper.querySelector('.modal-video-container');
+        if (videoContainer) {
+            videoContainer.style.display = 'none';
+        }
+        
+        // Show image
+        modalImage.style.display = 'block';
+        modalImage.src = item.src;
+        modalImage.alt = item.alt;
+        
+        // Update counter
+        modalCounter.textContent = `${index + 1} / ${currentImageGroup.length}`;
+        
+        // Get caption text and place counter on the right
+        const captionText = getImageCaption(item);
+        if (captionText) {
+            // Create a span for the caption text
+            const captionSpan = document.createElement('span');
+            captionSpan.textContent = captionText;
+            modalCaption.innerHTML = '';
+            modalCaption.appendChild(captionSpan);
+            modalCaption.appendChild(modalCounter);
+        } else {
+            // If no caption, just show counter
+            modalCaption.innerHTML = '';
+            modalCaption.appendChild(modalCounter);
+        }
     }
     
     // Update navigation buttons
@@ -674,6 +739,15 @@ document.addEventListener('keydown', function(e) {
 function closeModal() {
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
+    
+    // Stop YouTube video if playing
+    if (currentVideoId) {
+        const videoContainer = document.querySelector('.modal-video-container');
+        if (videoContainer) {
+            videoContainer.innerHTML = '';
+        }
+        currentVideoId = null;
+    }
 }
 document.querySelectorAll('.mission-card, .work-card, .stat-card').forEach(card => {
     card.addEventListener('mouseenter', function() {
